@@ -7,11 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.Envelope;
-
-
 @SpringBootApplication
 public class RaqbbitMQBootTestApplication {
 
@@ -20,16 +15,16 @@ public class RaqbbitMQBootTestApplication {
 		
 		RabbitMQConnectorService rabbitMQConnectorService = ac.getBean(RabbitMQConnectorService.class);
 		
-		rabbitMQConnectorService.addListener("hello", true, new DefaultConsumer(rabbitMQConnectorService.getChannel()) {
-	        @Override
-	        public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
-	            throws IOException {
-	          String message = new String(body, "UTF-8");
-	          System.out.println(" [x] Received '" + message + "'");
-	        }
-	      });
+		for(int i=0;i<10;i++){
+			rabbitMQConnectorService.addListener("hello", true, 
+					new WorkerAgent(rabbitMQConnectorService.getChannel(), "WorkerAgent "+i));
+		}
 		
-		rabbitMQConnectorService.sendMessageToQueue("hello","Hello World");
+		for(int i=0;i<100;i++){
+			rabbitMQConnectorService.sendMessageToQueue("hello","Hello World " + i);
+		}
+		
+		rabbitMQConnectorService.close();
 
 	}
 

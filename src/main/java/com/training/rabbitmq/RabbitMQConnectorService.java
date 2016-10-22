@@ -3,6 +3,7 @@ package com.training.rabbitmq;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,9 @@ public class RabbitMQConnectorService {
 
 	public Channel getChannel() {
 		return channel;
+	}
+
+	public void close() throws IOException, TimeoutException {			
+		channel.close();	
 	}
 }
