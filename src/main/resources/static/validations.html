@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome</title>
+<!-- 
+HTML5 defines eight new semantic elements. All these are block-level elements.
+To secure correct behavior in older browsers, you can set the CSS display property for these 
+HTML elements to block
+ -->
+<style>
+header, section, footer, aside, nav, main, article, figure {
+    display: block;
+}
+</style>
+<script type="text/javascript">
+document.createElement('header');
+document.createElement('section');
+document.createElement('footer');
+document.createElement('aside');
+document.createElement('nav');
+</script>
+<!-- 
+IE8 (and earlier) does not allow styling of unknown elements
+ Sjoerd Visscher created the HTML5Shiv! The HTML5Shiv is a JavaScript workaround to 
+ enable styling of HTML5 elements in versions of Internet Explorer prior to version 9.
+ -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<form action="#">
+<!-- min & max -->
+<br> Enter a date before 1980-01-01:
+<br> <input type="date" name="bday" max="1979-12-31">
+<br> Enter a date after 2000-01-01:
+<br> <input type="date" name="bday" min="2000-01-02">
+<br> Quantity (between 1 and 5):
+<br> <input type="number" name="quantity" min="1" max="5">
+
+<!-- pattern -->
+<br> Country code: 
+<br> <input type="text" name="country_code" pattern="[A-Za-z]{3}" title="Three letter country code">
+
+<!-- required  -->
+<br> Username: 
+<br> <input type="text" name="usrname" required>
+
+<!-- 
+step
+The step attribute can be used together with the max and min attributes to create a range of legal values.
+The step attribute works with the following input types: number, range, date, datetime-local, month, time and week.
+ -->
+ <br> Step
+<br> <input type="number" name="points" step="3">
+
+<br> <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
